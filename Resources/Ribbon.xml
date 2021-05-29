@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<customUI xmlns="http://schemas.spaceclaim.com/customui">
+	<ribbon>
+		<tabs>
+			<tab id="Dagmc_Toolbox.C#.V18.RibbonTab" command="Dagmc_Toolbox.C#.V18.RibbonTab">
+				<!--
+					For the 'tab' and 'group' elements, you can either specify a 'label' attribute, or you can
+					specify a 'command' attribute.  The 'command' attribute gives the name of a command that you
+					create, whose Text property will be used for the label.  This approach allows for localization
+					since you can use a string resource.  For illustration, this first 'group' uses a 'command'
+					attribute, and the remaining 'group' elements use a 'label' attribute.  If you specify both
+					attributes, the 'label' attribute is overridden by the 'command' attribute.
+				-->
+				<group id="Dagmc_Toolbox.C#.V18.PartGroup" command="Dagmc_Toolbox.C#.V18.PartGroup">
+					<!--
+						Command names match the names of Command objects created by the add-in in its
+						ICommandExtensibility.Initialize method, or the names of built-in commands. Command names
+						need to be unique, and are typically of the form, "MyAddIn.MyCommandName".  Since there
+						are several sample add-ins for different languages and different versions of the API, and
+						since more than one of these sample add-ins might be enabled, these sample add-in commands
+						have the language and API version build into their name too, so that they do not clash.
+						In most cases a simple name of the form, "MyAddIn.MyCommandName", will suffice.
+
+						A 'button' element can also have a 'label' attribute instead of a 'command' attribute.
+						This could be used as a placeholder before a Command object has been created.  Note that
+						the image can only be specified if you use the 'command' attribute.  The Image property
+						of the Command object is used.
+					-->
+                        <button id="Dagmc_Toolbox.C#.V18.ExportDagmc" size="large" command="Dagmc_Toolbox.C#.V18.ExportDagmc"/>
+					    <button id="Dagmc_Toolbox.C#.V18.RemoteTrelis" size="large" command="Dagmc_Toolbox.C#.V18.RemoteTrelis"/>
+					    <button id="Dagmc_Toolbox.C#.V18.PrintUid" size="large" command="Dagmc_Toolbox.C#.V18.PrintUid"/>
+						<button id="Dagmc_Toolbox.C#.V18.CheckGeometry" size="large" command="Dagmc_Toolbox.C#.V18.CheckGeometry"/>
+						<button id="Dagmc_Toolbox.C#.V18.CreateGroup" size="large" command="Dagmc_Toolbox.C#.V18.CreateGroup"/>    
+				</group>
+
+        <!--
+
+				<group id="SampleAddIn.C#.V13.GraphicsGroup" label="Graphics">
+					<button id="SampleAddIn.C#.V13.PolygonMesh" size="large" command="SampleAddIn.C#.V13.PolygonMesh"/>
+					<button id="SampleAddIn.C#.V13.SceneGraph" size="large" command="SampleAddIn.C#.V13.SceneGraph"/>
+					<button id="SampleAddIn.C#.V13.DeviationTool" size="large" command="SampleAddIn.C#.V13.DeviationTool"/>
+				</group>
+        -->
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>

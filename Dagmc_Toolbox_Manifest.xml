@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AddIns>
+  <AddIn name="Dagmc_Toolbox"
+         description="part of CCFE Neutronics Toolboxes"
+         assembly="Dagmc_Toolbox.dll"
+         typename="Dagmc_Toolbox.Dagmc_Toolbox_AddIn"
+         host="NewAppDomain"/>
+</AddIns>
