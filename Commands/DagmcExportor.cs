@@ -535,12 +535,24 @@ namespace Dagmc_Toolbox
         Dictionary<string, object> get_options()
         {
             var options = new Dictionary<string, object>();
-            //options["filename"] = "tmp_testoutput";
+            // get from default value, set in constructor
             options["faceting_tolerance"] = faceting_tol;  // double,  MOAB length unit?
             options["length_tolerance"] = len_tol;  // double
             options["normal_tolerance"] = norm_tol;  // int
             options["verbose"] = verbose_warnings;  // bool
             options["fatal_on_curves"] = fatal_on_curves; // bool
+
+            using (var form = new UI.DagmcExportForm())
+            {
+                if (form.ShowDialog() != DialogResult.OK)
+                    return options;
+                options["faceting_tolerance"] = form.FacetTol;
+                options["length_tolerance"] = form.FacetTol;
+                options["normal_tolerance"] = form.NormalTol;
+                options["verbose"] = form.Verbose;
+                options["fatal_on_curves"] = form.FatalOnCurve;
+
+            }
             return options;
         }
 

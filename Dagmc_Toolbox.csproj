@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="Acis">
       <HintPath>C:\Program Files\ANSYS Inc\ANSYS Student\v195\scdm\Acis.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CAENominal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7210645d4d5e3a39, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -53,6 +54,7 @@
     <Reference Include="Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7210645d4d5e3a39, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\ANSYS Inc\ANSYS Student\v195\scdm\Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CppSharp.Runtime">
       <HintPath>..\MOABSharp\MOABSharp\bin\Debug\netstandard2.0\CppSharp.Runtime.dll</HintPath>
@@ -74,6 +76,7 @@
     </Reference>
     <Reference Include="SpaceClaim.Api.V19.Scripting">
       <HintPath>C:\Program Files\ANSYS Inc\ANSYS Student\v195\scdm\SpaceClaim.Api.V19.Scripting.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="SpaceClaim.Foundation, Version=14.1.17034.0, Culture=neutral, PublicKeyToken=7210645d4d5e3a39, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -90,6 +93,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Half, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Half.1.0.0\lib\netstandard2.0\System.Half.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -122,6 +126,12 @@
     </Compile>
     <Compile Include="Commands\ExportDagmc.cs" />
     <Compile Include="Dagmc_Toolbox_AddIn.cs" />
+    <Compile Include="UI\DagmcExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DagmcExportForm.Designer.cs">
+      <DependentUpon>DagmcExportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\GroupCreationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +174,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\DagmcExportForm.resx">
+      <DependentUpon>DagmcExportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\GroupCreationForm.resx">
       <DependentUpon>GroupCreationForm.cs</DependentUpon>

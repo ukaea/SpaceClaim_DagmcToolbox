@@ -34,105 +34,50 @@ namespace Dagmc_Toolbox.Commands
         {
             command.IsEnabled = Window.ActiveWindow != null;
         }
+        /// <summary>
+        /// export mesh for DAGMC workflow
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="context"></param>
+        /// <param name="buttonRect"></param>
         protected override void OnExecute(Command command, ExecutionContext context, Rectangle buttonRect)
         {
             Debug.Assert(Window.ActiveWindow != null, "Window.ActiveWindow != null");
-            /* 
-             * Export objects to an .sat file depending upon their colour and material                          
-            */
-
-            // User selects the file destination to save
-            //----------------------------------------------------------
 
             //MessageBox.Show("ExportDagmc called");
-            /*
-            var data = ExportDagmcData.FromString(context.Data);
-            if (data == null)
+
+            var exportor = new DagmcExporter();
+            //
+            exportor.ExportedFileName = GetExportFilename();
+            if (exportor.Execute())
             {
-                data = PromptForData();
-                context.Data = data.ToString(); // store the data to be used for journal replay
-            }
-            if (string.IsNullOrEmpty(data.FileName))
-                return; // user canceled
-            */
-
-            // Declaration of SpaceClaim variables
-            //----------------------------------------------------------
-
-            Window window = Window.ActiveWindow;
-            window.InteractionMode = InteractionMode.Solid;
-            Document doc = window.Document;
-            Part rootPart = doc.MainPart;
-            ExportOptions options;
-            options = null;
-            string tempString = "_";
-            //char[] delimiterChars = { '.' };  
-
-            var exporter = new DagmcExporter();
-            exporter.ExportedFileName = @"D:\test_moab_mesh.h5m";
-            if (exporter.Execute())
-            {
-                MessageBox.Show("ExportDagmc to file " + exporter.ExportedFileName);
+                MessageBox.Show("ExportDagmc to file " + exportor.ExportedFileName);
             }
         }
 
 
-
-        // Prompt the user for the location to save the file
-        //----------------------------------------------------------
-
-        static ExportDagmcData PromptForData()
+        /// <summary>
+        /// Prompt the user for the location to save the file
+        /// </summary>
+        /// <returns> file path </returns>
+        static string GetExportFilename()
         {
-            PartExportFormat exportFormat = PartExportFormat.AcisText;
-            string fileName = null;
-
-            AddIn.ExecuteWindowsFormsCode(() => {
+            string filename = @"D:\test_moab_mesh.h5m"; 
+            AddIn.ExecuteWindowsFormsCode(() =>
+            {
                 using (var fileDialog = new SaveFileDialog())
                 {
-                    var formats = new List<PartExportFormat>();
-
-                    // add the supported file formats to the SaveAs dialog
-                    string filter = string.Empty;
-                    foreach (PartExportFormat format in Enum.GetValues(typeof(PartExportFormat)))
+                    fileDialog.Filter = "HDF5Mesh(*.h5m)|*.h5m;|VTKMesh(*.vtk)|*.vtk";
+                    fileDialog.FileName = "Dagmc.h5m";
+                    fileDialog.DefaultExt = "h5m";
+                    if (fileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        string formatFilter = GetFilter(format);
-                        if (!string.IsNullOrEmpty(formatFilter))
-                        {
-                            filter += formatFilter + "|";
-                            formats.Add(format);
-                        }
+                        filename = fileDialog.FileName;
                     }
-                    filter = filter.TrimEnd('|');
-                    fileDialog.Filter = filter;
-
-                    if (fileDialog.ShowDialog(SpaceClaim.Api.V19.Application.MainWindow) != DialogResult.OK)
-                        return; // user canceled
-
-                    // get the data the user entered
-                    exportFormat = formats[fileDialog.FilterIndex - 1];
-                    fileName = fileDialog.FileName;
                 }
             });
-
-            return new ExportDagmcData(exportFormat, fileName);
+            return filename;
         }
-
-
-        // Different Filters for the user to choose from
-        //----------------------------------------------------------
-
-        static string GetFilter(PartExportFormat exportFormat)
-        {
-            switch (exportFormat)
-            {
-                case PartExportFormat.AcisText:
-                    return "SAT files (*.sat)|*.sat";
-                default:
-                    return null;
-            }
-        }
-
-
 
     }
 
