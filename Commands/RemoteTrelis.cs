@@ -28,7 +28,6 @@ namespace Dagmc_Toolbox.Commands
         //----------------------------------------------------------
 
         public const string CommandName = "Dagmc_Toolbox.C#.V18.RemoteTrelis";
-        protected System.Collections.Concurrent.ConcurrentDictionary<IDesignBody, bool> CheckResults;
 
         public RemoteTrelis() : base(CommandName, Resources.RemoteTrelisText, Resources.RemoteTrelis, Resources.RemoteTrelisHint)
         {

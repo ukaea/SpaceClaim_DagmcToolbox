@@ -28,7 +28,7 @@ namespace Dagmc_Toolbox.Commands
         //----------------------------------------------------------
 
         public const string CommandName = "Dagmc_Toolbox.C#.V18.CheckGeometry";
-        protected System.Collections.Concurrent.ConcurrentDictionary<IDesignBody, bool> CheckResults;
+        //protected System.Collections.Concurrent.ConcurrentDictionary<IDesignBody, bool> CheckResults;
 
         public CheckGeometry() : base(CommandName, Resources.CheckGeometryText, Resources.CheckGeometry, Resources.CheckGeometryHint)
         {

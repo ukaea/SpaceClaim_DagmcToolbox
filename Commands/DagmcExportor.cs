@@ -83,7 +83,7 @@ namespace Dagmc_Toolbox
         bool fatal_on_curves;
 
         int failed_curve_count;
-        List<int> failed_curves;
+        List<int> failed_curves;  // ID_Type
         int curve_warnings;
 
         int failed_surface_count;
@@ -530,20 +530,32 @@ namespace Dagmc_Toolbox
 
         /// <summary>
         /// NOTE:  completed for MVP stage, but need a GUI form for user to customize the parameters in the next stage
+        /// TODO: MOAB length unit? SI;  normal_tolerance unit?
+        ///       what is the difference between length_tolerance and faceting_tolerance?
         /// </summary>
         /// <returns></returns>
         Dictionary<string, object> get_options()
         {
             var options = new Dictionary<string, object>();
             // get from default value, set in constructor
-            options["faceting_tolerance"] = faceting_tol;  // double,  MOAB length unit?
+            options["faceting_tolerance"] = faceting_tol;  // double,  
             options["length_tolerance"] = len_tol;  // double
             options["normal_tolerance"] = norm_tol;  // int
             options["verbose"] = verbose_warnings;  // bool
             options["fatal_on_curves"] = fatal_on_curves; // bool
 
+            // SpaceClaim dagmc specific
+            // "surface_deviation"   unit m
+            // "max_aspect_ratio"    unitless
+
             using (var form = new UI.DagmcExportForm())
             {
+                form.FacetTol = faceting_tol;  // double,  MOAB length unit?
+                //options["length_tolerance"] = len_tol;  // double
+                form.NormalTol = norm_tol;  // int
+                form.Verbose = verbose_warnings;  // bool
+                form.FatalOnCurve = fatal_on_curves; // bool
+
                 if (form.ShowDialog() != DialogResult.OK)
                     return options;
                 options["faceting_tolerance"] = form.FacetTol;
@@ -610,7 +622,7 @@ namespace Dagmc_Toolbox
             // get some tag handles
             int zero = 0;  // used as default value for tag
             int negone = -1;
-            bool created = false;  // 
+            //bool created = false;  // 
             ///  unsigned flags = 0, const void* default_value = 0, bool* created = 0
             // fixme: runtime error!
             ///  uint must be cast from enum in C#,  void* is mapped to IntPtr type in C#
@@ -740,7 +752,7 @@ namespace Dagmc_Toolbox
                 ///  tag_data is a pointer to the opaque C++ object, need a helper function
                 /// moab::ErrorCode moab::Interface::tag_set_data(moab::Tag tag_handle,
                 // //     const moab::EntityHandle *entity_handles, int num_entities, const void *tag_data)
-                int numEnt = 1;
+
                 rval = myMoabInstance.SetTagData(geom_tag, ref handle, dim);
                 if (Moab.ErrorCode.MB_SUCCESS != rval) return rval;
 
@@ -1322,7 +1334,7 @@ namespace Dagmc_Toolbox
                                 var edgeID = getUniqueId(e);
                                 if (Moab.ErrorCode.MB_SUCCESS == check_edge_mesh(kv.Key, kv.Value, edgeID))
                                 {
-                                    add_edge_mesh(kv.Key, kv.Value, ref edgeHandle, ref vertex_map);
+                                    rval = add_edge_mesh(kv.Key, kv.Value, ref edgeHandle, ref vertex_map);
                                 }
                                 else
                                 {
@@ -1371,7 +1383,6 @@ namespace Dagmc_Toolbox
             
             if (points.Count < 2)
             {
-                var interval = 1e-3;  // todo, not compilable code
                 if (edge.Length < GEOMETRY_RESABS)   // `start_vtx != end_vtx`  not necessary
                 {
                     message.WriteLine($"Warning: No facetting for curve shorter than length threshold {edgeID}");
@@ -1614,7 +1625,7 @@ namespace Dagmc_Toolbox
                         {
                             EntityHandle faceHandle = surface_map[f];
                             FaceTessellation fmesh = kv.Value;
-                            add_surface_mesh(kv.Key, fmesh, faceHandle, ref vertex_map);
+                            rval = add_surface_mesh(kv.Key, fmesh, faceHandle, ref vertex_map);
                         }
                     }
                 }
