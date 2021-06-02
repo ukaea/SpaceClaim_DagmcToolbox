@@ -143,6 +143,8 @@
     <Content Include="Dagmc_Toolbox_Manifest.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="docs\Deployment.md" />
+    <None Include="docs\Todo.md" />
     <None Include="Resources\RemoteTrelis.png" />
     <None Include="PythonScripts\PrintUid.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -153,7 +155,7 @@
     <None Include="Resources\CheckGeometry.png" />
     <None Include="Resources\CreateGroup.png" />
     <None Include="Resources\PrintUid.png" />
-    <None Include="DevNote_DAGMC_SpaceClaim.md" />
+    <None Include="docs\DevNote_DAGMC_SpaceClaim.md" />
     <None Include="packages.config" />
     <None Include="README.md" />
     <!--     -->
