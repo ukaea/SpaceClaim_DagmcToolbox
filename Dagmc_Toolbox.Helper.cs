@@ -79,13 +79,14 @@ namespace Dagmc_Toolbox
             return allBodies;
         }
 
-        static public ICollection<T> GatherSelectedObjects<T>(InteractionContext context) where T : DocObject
+        static public ICollection<T> GatherSelectedObjects<T>(InteractionContext context) where T : IDocObject
         {
             var docObjects = new List<T>();
-            var selection = context.Selection;
-            foreach (DocObject o in selection)
+            var selection = Window.ActiveWindow.ActiveContext.Selection; // context.Selection;
+            // System.InvalidCastException: 'Unable to cast transparent proxy to type 'SpaceClaim.Api.V19.DesignEdge'.'
+            foreach (IDocObject o in selection)
             {
-                if ((T)o != null)
+                if (o is T)
                     docObjects.Add((T)o);
             }
             return docObjects;
@@ -114,7 +115,14 @@ namespace Dagmc_Toolbox
 
         static public bool RemoveGroup(string existingGroupName)
         {
-            SpaceClaim.Api.V19.Scripting.Commands.NamedSelection.Delete(existingGroupName);
+            try
+            {
+                SpaceClaim.Api.V19.Scripting.Commands.NamedSelection.Delete(existingGroupName);
+            }
+            catch(Exception e)  // todo:  NullException during deleting
+            {
+                return false;
+            }
             return true;
         }
 
@@ -127,7 +135,7 @@ namespace Dagmc_Toolbox
         static public bool AppendToGroup(ICollection<IDocObject> objects, string existingGroupName)
         {
             var group = SelectGroup(existingGroupName);
-            string tmpGroupName = "__tmpGroupToAadd";
+            string tmpGroupName = "__tmpGroupToAdd";
             if (group != null)
             {
                 foreach (var o in group.Members)
@@ -145,6 +153,11 @@ namespace Dagmc_Toolbox
             return false;
         }
 
+        /// <summary>
+        /// todo: a map function from group.Name to predefined colors
+        /// </summary>
+        /// <param name="group"></param>
+        /// <param name="color"></param>
         static public void ColorizeGroup(Group group, Color color)
         {
             foreach(var o in group.Members)

@@ -144,6 +144,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="docs\Deployment.md" />
+    <None Include="docs\PortingNotes.md" />
     <None Include="docs\Todo.md" />
     <None Include="Resources\RemoteTrelis.png" />
     <None Include="PythonScripts\PrintUid.py">
@@ -166,7 +167,6 @@
     </None>
     <None Include="Resources\ExportDagmc.png" />
     <None Include="Resources\Ribbon.xml" />
-    <None Include="TemplateReadme.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests\" />

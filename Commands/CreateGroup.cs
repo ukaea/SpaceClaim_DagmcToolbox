@@ -39,50 +39,63 @@ namespace Dagmc_Toolbox.Commands
         {
             Debug.Assert(Window.ActiveWindow != null, "Window.ActiveWindow != null");
 
-            var groups = Helper.GatherAllGroups();   // 3 groups
-            var names = groups.Select(C => C.Name);   // not
+            var groups = Helper.GatherAllGroups();   // could be empty
+            List<string> names = new List<string>();
+            foreach(var g in groups)
+            {
+                names.Add(g.Name);
+            }
             using (var form = new UI.GroupCreationForm(GroupAction.Create, names))
             {
+                // ShowDialog()  will show form as Modal Dialog, other windows is not operable
+                // user must select 
                 if (form.ShowDialog() != DialogResult.OK)
                     return;
                 
                 ICollection<IDocObject> objects = null;
                 if (form.GType == GroupType.Material) // here filter is assumed to be body only
                 {
-                    var selected = Helper.GatherSelectedObjects<DesignBody>(Window.ActiveWindow.ActiveContext);
                     objects = new List<IDocObject>();
-                    foreach(var o in selected)
-                        objects.Add((DocObject)o);
-                }
-                else if (form.GType == GroupType.Boundary)
-                {
-                    var selected = Helper.GatherSelectedObjects<DesignFace>(Window.ActiveWindow.ActiveContext);
-                    objects = new List<IDocObject>();
+                    var selected = Window.ActiveWindow.ActiveContext.Selection;
                     foreach (var o in selected)
-                        objects.Add((DocObject)o);
+                    {
+                        if(o is IDesignBody)
+                            objects.Add(o as IDesignBody);
+                    }
                 }
-                else
+                else if (form.GType == GroupType.Boundary) // here filter is assumed to be face only
+                {
+                    objects = new List<IDocObject>();
+                    var selected = Window.ActiveWindow.ActiveContext.Selection;
+                    foreach (var o in selected)
+                    {
+                        if (o is IDesignFace)
+                            objects.Add(o as IDesignFace);
+                        else
+                            Debug.WriteLine("Warning: Boundary is assumed to be surface only, no edge is added");
+                    }
+                    
+                }
+                else  // form.GType == GroupType.Boundary, add all selected DocObject
                 {
                     objects = Window.ActiveWindow.ActiveContext.Selection;
                 }
 
-                /// parameter validations
-                if(form.GroupName == null || form.GroupName == string.Empty)
-                {
-                    Debug.WriteLine("GroupName is null or empty string, just skip this group operation");
-                }
-                if (objects.Count == 0)
-                    Debug.WriteLine("no shape objects selected, just skip this operation");
-
+                // todo: make the full group name, that can be saved to MOAB
                 if (form.GAction == GroupAction.Create)
                 {
+                    if (objects.Count == 0)
+                        return;
                     Group.Create(Helper.GetActiveMainPart(), form.GroupName, objects);
                 }
                 else if (form.GAction == GroupAction.Append)
+                {
+                    if (objects.Count == 0)
+                        return;
                     Helper.AppendToGroup(objects, form.GroupName);
+                }
                 else
-                    return;  // DeleteGroup should be hidden from user for the time being.
-
+                    return;  // DeleteGroup has been hidden/disabled from user for the time being.
             }
         }
     }

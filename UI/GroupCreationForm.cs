@@ -131,6 +131,29 @@ namespace Dagmc_Toolbox.UI
             }
         }
 
+        /// <summary>
+        /// return True is validation passed
+        /// </summary>
+        /// <returns></returns>
+        internal bool ValidateForm()
+        {
+            if (this.GroupName == null || this.GroupName == string.Empty)
+            {
+                MessageBox.Show("GroupName is null or empty string, input or select from existent");
+                return false;
+            }
+            if (this.GAction == GroupAction.Create || this.GAction == GroupAction.Append)
+            {
+                var objects = SpaceClaim.Api.V19.Window.ActiveWindow.ActiveContext.Selection;
+                if (objects.Count == 0)
+                {
+                    MessageBox.Show("no shape objects selected, please select");
+                }
+            }
+            MessageBox.Show("no error found, you can click OK button to perform action");
+            return true;
+        }
+
         internal GroupAction GAction
         {
             get 
@@ -244,5 +267,9 @@ namespace Dagmc_Toolbox.UI
             GType = Helper.GetGroupType(o.Text);
         }
 
+        private void buttonValidate_Click(object sender, EventArgs e)
+        {
+            this.ValidateForm();
+        }
     }
 }
