@@ -1,10 +1,12 @@
 #  Dagmc Toolbox for SpaceClaim
 
-**Export MOAB mesh for DAGMC Neutronics simulation workflow in SpaceClaim, i.e. the same feature as Trelis DAGMC plugin in C++.**  This a sibling project with [SpaceClaim tool collectoin for Neutronics design and simulation](https://github.com/ukaea/SpaceClaim_API_NeutronicsTools)
+**Export MOAB mesh for DAGMC Neutronics simulation workflow in SpaceClaim, i.e. the same feature as Trelis DAGMC plugin in C++.**  
+
+This is a sibling project with [SpaceClaim tool collectoin for Neutronics design and simulation](https://github.com/ukaea/SpaceClaim_API_NeutronicsTools)
 
 
-Qingfeng Xia
-Copyright 2021 United Kingdom Atomic Energy Agency (UKAEA)
+Qingfeng Xia  
+Copyright 2021 United Kingdom Atomic Energy Agency (UKAEA)  
 license: MIT
 
 ## Feature
@@ -13,9 +15,8 @@ license: MIT
 
 This is hosted in another repo:  https://bitbucket.org/qingfengxia/moabsharp
 
-### GeometryCheck
-
-### Dagmc mesh export
+### Dagmc HDF5 mesh export
+with a GUI form to control faceting tolerance.
 
 ### CreateGroup
 In addition to spaceclaim builtin "Group" creation, which can not be modified.
@@ -23,6 +24,10 @@ This command can give
 + GUI form to "Modify" existing groups such as appending new items.
 + change color to highlight a group of items
 + group name check, DAGMC require a fixed group name format.
+
+### GeometryCheck
+
+Experimental feature.
 
 ### RemoteTrelis
 
