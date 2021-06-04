@@ -167,10 +167,9 @@
     </None>
     <None Include="Resources\ExportDagmc.png" />
     <None Include="Resources\Ribbon.xml" />
+    <None Include="Tests\cffi_test.py" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tests\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

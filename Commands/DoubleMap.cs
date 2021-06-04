@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Dagmc_Toolbox
 {
     /// <summary>
-    /// Double mapping for C#
+    /// Double mapping for C#, used only for entity_id
     /// Code from StackOverflow, Creative Commons Attribution-ShareAlike 3.0 license (CC BY-SA 3.0)
     /// Author Enigmativity
     /// https://stackoverflow.com/questions/10966331/two-way-bidirectional-dictionary-in-c/10966684

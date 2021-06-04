@@ -46,7 +46,7 @@ namespace Dagmc_Toolbox.Commands
 
             //MessageBox.Show("ExportDagmc called");
 
-            var exportor = new DagmcExporter();
+            var exportor = new DagmcExportor();
             //
             exportor.ExportedFileName = GetExportFilename();
             if (exportor.Execute())

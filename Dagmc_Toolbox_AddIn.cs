@@ -20,10 +20,10 @@ namespace Dagmc_Toolbox
             new SpaceClaim.Api.V19.Extensibility.CommandCapsule("Dagmc_Toolbox.C#.V18.RibbonTab", Properties.Resources.RibbonTabText),
             new SpaceClaim.Api.V19.Extensibility.CommandCapsule("Dagmc_Toolbox.C#.V18.PartGroup", Properties.Resources.PartGroupText),
             new Commands.ExportDagmc(),
-            new Commands.PrintUid(),
+            //new Commands.PrintUid(),
             new Commands.CheckGeometry(),
-            new Commands.CreateGroup(),
-            new Commands.RemoteTrelis()
+            new Commands.CreateGroup()
+            //new Commands.RemoteTrelis()
         };
 
         #region IExtensibility members

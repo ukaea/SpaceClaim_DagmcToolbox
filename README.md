@@ -50,11 +50,12 @@ Start SpaceClaim.exe and look for a new Ribbon menu called `Dagmc_Toolbox`
 
 If all goes well for DagmcExport, there will be a MessageBox reporting mesh has been saved.
 
-If there is error loading some dll files, just append 
+If there is error loading some dll files, try append 
 `C:\ProgramData\SpaceClaim\AddIns\Samples\V19\Dagmc_Toolbox` to user 's PATH environment variable.
 <https://www.thewindowsclub.com/system-user-environment-variables-windows>
 
-If SpaceClaim exit without firing up a FileDialog, may just rerun the DagmcExport command.
+If SpaceClaim exit without showing a DagmcExportOption form GUI, may just rerun the DagmcExport command.
+The reason is not clear yet.
 
 There is a log file accompanying  the mesh file saved in the mesh saving folder. check. 
 
