@@ -9,29 +9,29 @@ Qingfeng Xia
 Copyright 2021 United Kingdom Atomic Energy Agency (UKAEA)  
 license: MIT
 
-## Feature
+## Features
 
-### C# binding to MOAB C++ API
+### 1. C# binding to MOAB C++ API
 
 This is hosted in another repo:  https://bitbucket.org/qingfengxia/moabsharp
 
-### Dagmc HDF5 mesh export
+### 2. Dagmc HDF5 mesh export
 with a GUI form to control faceting tolerance.
 
-### CreateGroup
+### 3. CreateGroup
 In addition to spaceclaim builtin "Group" creation, which can not be modified.
 This command can give
 + GUI form to "Modify" existing groups such as appending new items.
 + change color to highlight a group of items
 + group name check, DAGMC require a fixed group name format.
 
-### GeometryCheck
+### 4. GeometryCheck
 
-Experimental feature.
+Experimental feature, parallel computation can be tested in this class, which will not modify geometry.
 
-### RemoteTrelis
+### 5. RemoteTrelis
 
-Feature only avaiable for UKAEA internal users, may removed the code.
+Feature only avaiable for UKAEA internal users, hidden for the moment, may removed the code.
 
 
 ## Installation guide
@@ -63,3 +63,9 @@ There is a log file accompanying  the mesh file saved in the mesh saving folder.
 [MOABSharp](https://bitbucket.org/qingfengxia/moabsharp)` is self-contained project (copied all dependencies dll into the folder where Dagmc_Toolbox.dll is located), so this should work for future SpaceClaim API.
 
 
+### Developer notes in `docs` subfolder
+
++ Deployment guideline
++ Note on porting C++ trelis plugin to C# code for SpaceClaim
++ Misc developer notes
++ Todo list

@@ -1,5 +1,16 @@
 ## Notes on porting Trelisdagmic plugin to SpaceClaim
 
+C# source code corresponding to C++ code is located in <DagmcExportor.cs>.
+Most function names are kept as same as C++, so not compliant to C# code practice.
+
+### Performance concern
+C# is slower than C++, and also language interopation layer involved, it is expected that code may be 4 times slower
+may use visual studio profiling to find the bottleneck.
+
+[Ordered map vs. Unordered map 每 A Performance StudOrdered map vs. Unordered map 每 A Performance Study](http://supercomputingblog.com/windows/ordered-map-vs-unordered-map-a-performance-study/#:~:text=As%20you%20can%20see%2C%20using,of%20elements%20in%20the%20test)
+The nearly exact C# equivalent to the C++ std::unordered_map collection is the .NET Dictionary collection. (The C# equivalent to the C++ std::map collection is the .NET SortedDictionary collection).
+
+### Steps for poarting C++ to C#
 1. Source code porting approach: manually translation, keep function name identical as C++'s
 
 There is some tool to automate this conversion, but not sure about the quality.
@@ -26,14 +37,7 @@ https://github.com/svalinn/Trelis-plugin/issues/88
 
 exported file name will be get from file dialog.
 
-7. Performance
-C# is slower than C++, and also language interopation layer involved, it is expected that code may be 4 times slower
-may use visual studio profiling to find the bottleneck.
-
-[Ordered map vs. Unordered map 每 A Performance StudOrdered map vs. Unordered map 每 A Performance Study](http://supercomputingblog.com/windows/ordered-map-vs-unordered-map-a-performance-study/#:~:text=As%20you%20can%20see%2C%20using,of%20elements%20in%20the%20test)
-The nearly exact C# equivalent to the C++ std::unordered_map collection is the .NET Dictionary collection. (The C# equivalent to the C++ std::map collection is the .NET SortedDictionary collection).
-
-
+7. Floating point value comparison
 Python 3.5 add float close/equal check function, or just use numpy's
 ```py
 # numpy.isclose(a, b, rtol=1e-05, atol=1e-08, equal_nan=False)
@@ -126,16 +130,17 @@ MOAB c++/C# bindings has this EntityType definition
 Group can contain different topology types.
 
 
-### duplicate points to remove, ensure verticies are shared.
+### Duplicate points to remove, ensure CAD geometry verticies are shared.
+
+CHECKED:  no MOAB_vertex is created for on edge points (except starting and eding points),
+and those are not added to vertex_map. 
+
+Edge mesh points is checked against vertex_map by distance threshold, to make sure
+ no duplicated geometry vertices (edge starting and ending points) is written to MOAB.
 
 in `_add_vertex()` give another check
 
-                //List<RefEntity> entToRemove = new List<RefEntity>();
-                // remove key is not allowed within foreach loop
-                //entToRemove.Add(entry.Key);
-                // may remove duplicated entity in MOAB
-
-`PointHasher class` is created to detect coincident more efficinetly.
+`PointHasher class` is created to detect point coincidence more efficinetly.
 
 ### To avoid mesh on shared faces/edges been written out twice
 
@@ -148,6 +153,8 @@ There could be more than 3 edges in a group, all of them takes up the same spati
 But it is found all edges 's `IsReversed` is False.
 
 ### SharedFace surface registration into MOAB
+
+"Check that each surface has a sense for only one volume" is not needed in SpaceClaim
 
 Questoins: 
 > if vol_A and vol_B shared a face, when create MOAB topology,

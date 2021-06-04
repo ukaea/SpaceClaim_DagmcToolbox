@@ -1,14 +1,14 @@
 ## Deployment Addin
 
 ### Dependencies
-+ nuget System.Half, it is only used by PrintUID.py, may be removed in  the future.
++ nuget System.Half, it is only used by PrintUID command, may be removed in  the future.
   website
   > add as a nuget references, it is a prerelease package
   Used to compute [parallel-preprocessor]() style goemetry hashing ID
 
 + CppSharp.Runtime.dll  in $CppSharp_DIR`
 
-+ MOABSharp.dll: not packaged yet
++ MOABSharp.dll: this project is not packaged into nuget package yet
   website:
   > This C# project can be added into the visual studio solution, and as a project dependency of Damgc_Toolbox
   https://docs.microsoft.com/en-us/visualstudio/ide/managing-references-in-a-project?view=vs-2019#:~:text=To%20add%20a%20reference%2C%20right,node%20and%20select%20Add%20%3E%20Reference.
