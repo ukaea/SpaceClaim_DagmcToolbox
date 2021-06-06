@@ -16,7 +16,7 @@ license: MIT
 This is hosted in another repo:  https://bitbucket.org/qingfengxia/moabsharp
 
 ### 2. Dagmc HDF5 mesh export
-with a GUI form to control faceting tolerance.
+with a GUI form to control faceting tolerance, etc.
 
 ### 3. CreateGroup
 In addition to spaceclaim builtin "Group" creation, which can not be modified.
@@ -31,7 +31,7 @@ Experimental feature, parallel computation can be tested in this class, which wi
 
 ### 5. RemoteTrelis
 
-Feature only avaiable for UKAEA internal users, hidden for the moment, may removed the code.
+Feature only avaiable for UKAEA internal users, hidden for the moment, may be removed the code.
 
 
 ## Installation guide
@@ -44,11 +44,19 @@ Extract to a specific location recongized by Ansys SpaceClaim (it works for the 
 
 Ensure all dll files are located in `Dagmc_Toolbox` subfolder of `C:\ProgramData\SpaceClaim\AddIns\Samples\V19`
 
-Start SpaceClaim.exe and look for a new Ribbon menu called `Dagmc_Toolbox`
+Start SpaceClaim.exe and look for a new Ribbon menu bar called `Dagmc_Toolbox`
 
-### Troubleshoot
+### Get started
+
++ Open a SpaceClaim document, check and imprint all bodies, 
++ Setup groups for material, boundary condition, etc. manually or using "Crate Group" command
++ Click the "Export Dagmc" icon on the Dagmc_Toolbox
++ Select mesh file saving path in the FileDialog GUI
++ Set mesh export parameters in a GUI Form
 
 If all goes well for DagmcExport, there will be a MessageBox reporting mesh has been saved.
+
+### Troubleshoot
 
 If there is error loading some dll files, try append 
 `C:\ProgramData\SpaceClaim\AddIns\Samples\V19\Dagmc_Toolbox` to user 's PATH environment variable.

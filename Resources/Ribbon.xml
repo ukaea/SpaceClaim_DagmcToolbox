@@ -27,8 +27,11 @@
 						of the Command object is used.
 					-->
                         <button id="Dagmc_Toolbox.C#.V18.ExportDagmc" size="large" command="Dagmc_Toolbox.C#.V18.ExportDagmc"/>
+					<!-- PrintUID is related with ukaea/parallel-preprocessor
+					    RemoteTrelis works only inside UKAEA,  so both are hidden
 					    <button id="Dagmc_Toolbox.C#.V18.RemoteTrelis" size="large" command="Dagmc_Toolbox.C#.V18.RemoteTrelis"/>
 					    <button id="Dagmc_Toolbox.C#.V18.PrintUid" size="large" command="Dagmc_Toolbox.C#.V18.PrintUid"/>
+					-->	
 						<button id="Dagmc_Toolbox.C#.V18.CheckGeometry" size="large" command="Dagmc_Toolbox.C#.V18.CheckGeometry"/>
 						<button id="Dagmc_Toolbox.C#.V18.CreateGroup" size="large" command="Dagmc_Toolbox.C#.V18.CreateGroup"/>    
 				</group>
